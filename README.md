@@ -10,8 +10,8 @@ Together, these scripts form a data processing pipeline for Thomas Hansen's
 InfoPos Project in Dr. Gina Kuperberg's NeuroCognition of Language Lab.
 
 The scripts are partly based on prior processing scripts from the
-Kuperberg lab, but Andrew heavily redesigned and developed the scripts
-during summer 2023.
+Kuperberg lab, but Andrew heavily redesigned and developed the code
+during the summer of 2023.
 
 -----------------------------------------------------------------------
 
