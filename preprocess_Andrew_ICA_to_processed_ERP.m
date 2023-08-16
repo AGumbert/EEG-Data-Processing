@@ -10,8 +10,7 @@
 % for some of the set-up functionality with
 % regard to reading in participant data. Also,
 % credit to them for setting up folder-creating 
-% code, setting up parameters, and setting up initial 
-% filtering, binning, and epoching.
+% code, and for setting up some parameters.
 %
 % All other parts of this script were written 
 % by Andrew
