@@ -6,6 +6,12 @@
 %
 % This script is loosely based on prior processing
 % scripts used in the Hansen Lab.
+% Credit to Edward Wlotko and Arim Perrachione
+% for some of the set-up functionality with
+% regard to reading in participant data. 
+%
+% All other parts of this script were written 
+% by Andrew
 
 
 %ERPcprocessing script for NCL standard 32 channel Biosemi data
