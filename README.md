@@ -84,7 +84,9 @@ Here are the stages in the current data processing pipeline:
    channels when prompted according to the results of the previous step. 
    This will generate data sets in a folder named "EEGsets_before_ICA_rejection".
    For reference, artifact rejection sets from this script will appear in the 
-   "art_rej_before_ICA" folder.
+   "art_rej_before_ICA" folder. Sets must be named
+   "<subject id>_after_ICA_rejection.set". 
+   For example: "IP10_after_ICA_rejection.set".
 
 6. Run ICLabel on each participant, and reject the components of each participant
    that are labeled with more than 50% eye, or are obviously from muscle or 
