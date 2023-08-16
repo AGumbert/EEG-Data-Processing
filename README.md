@@ -23,6 +23,30 @@ Potentials (ERPs) in a study designed to test the predictive coding model
 of cognition on language processing.
 
 -----------------------------------------------------------------------
+
+Acknowledgements:
+
+Many thanks to Thomas Hansen for instructions and guidance with regard 
+to learning how to use EEGLAB to create useful scripts. None of this
+would have been possible without Tom's exceptional mentorship throughout
+the course of the summer. 
+
+Thanks to Edward Alexander for providing files used to produce a 
+spreadsheet containing well-formatted visualizations of topographic
+maps. Andrew adopted and modified these files, topo_placer_script.py
+and Voltage_Map_Generator.m, to become useful for the InfoPos project.
+
+Thanks to Edward Wlotko and Arim Perrachione for providing an initial 
+MATLAB processing script, preprocess.m, that helped inform the way
+Andrew's MATLAB scripts set up participant data. This includes functionality 
+such as accepting a list of subject ids, creating necessary directories 
+to store outputs, performing high/low pass filtering of data, and 
+the bin/epoch processes. 
+
+See file headers for more information on acknowledgements pertaining
+to each specific file.
+
+-----------------------------------------------------------------------
 Here are the necessary files in the main directory that must be present
 before beginning the pipeline:
 
