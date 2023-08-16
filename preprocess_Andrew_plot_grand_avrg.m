@@ -8,10 +8,7 @@
 % scripts used in the Hansen Lab.
 % Credit to Edward Wlotko and Arim Perrachione
 % for some of the set-up functionality with
-% regard to reading in participant data. Also,
-% credit to them for setting up folder-creating 
-% code, setting up parameters, and setting up initial 
-% filtering, binning, and epoching.
+% regard to reading in participant data. 
 %
 % All other parts of this script were written 
 % by Andrew
