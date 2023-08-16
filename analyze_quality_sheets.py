@@ -1,6 +1,7 @@
 #############  analyze_quality_sheets.py  ###########
 #
 # Created by Andrew Gumbert, June 2023 for Thomas Hanson Lab
+# Last updated by Andrw Gumbert, August 2023
 #
 # Processes all excel files in "data_quality_sheets" folder.
 # Expects file names to have the form "<Subject ID>_ERP_quality_sheet"
@@ -12,7 +13,14 @@
 # standard deviation, average + 2*STD, and average - 2*STD.
 #
 # Highlights individual readings beyond two standard deviations 
-# from the mean in red. 
+# from the mean in red.
+#
+# Saves resulting colored file as "color_" + <original_filename>
+# Saves these processed files to "data_quality_sheets_color"
+# folder, which is in the same directory as the "data_quality_sheets"
+# folder.
+#
+# INCLUDES AF3 AND AF4 FROM AVERAGE AND STANDARD DEVIATION
 
 
 
@@ -28,11 +36,11 @@ import math
 
 
 # for Tom's computer:
-# path = "C:\Users\thoma\Documents\First Year PHD\FYP Presentation/data_quality_sheets"
+path = "S:\PROJECTS\InfoPos\data_quality_sheets"
 
 
 # for Andrew's computer:
-path = "/Users/Andrew/Desktop/MatLab/Andrew_PreProcess_FileStructure/data_quality_sheets"
+#path = "/Volumes/as_rsch_NCL02$/PROJECTS/InfoPos/data_quality_sheets"
 
 for filename in os.listdir(path):
 
@@ -90,8 +98,4 @@ for filename in os.listdir(path):
 
 
         # saves sheet
-        wb.save(path + "/" + filename)
-
-
-
-
+        wb.save(path + "_color/color_" + filename)
