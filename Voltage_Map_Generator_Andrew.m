@@ -6,18 +6,18 @@
 %
 % This script is partly based on prior processing
 % scripts used in the Hansen Lab, such as the old
-% "Voltage_Map_Generator.m" script
+% "Voltage_Map_Generator.m" script.
 %
 % Credit to Edward Alexander for the original 
-% "Voltage_Map_Generator.m" script
+% "Voltage_Map_Generator.m" script.
 % edward.alexander@tufts.edu
 % Alexander wrote code for outputing topographical
 % maps in a format that is usable for the 
-% topo_placer_script_Andrew.py script
+% topo_placer_script_Andrew.py script.
 % 
 % Credit to Edward Wlotko and Arim Perrachione
 % for some of the set-up functionality with
-% regard to reading in participant data
+% regard to reading in participant data.
 %
 % All other parts of this script were written 
 % by Andrew
