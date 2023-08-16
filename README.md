@@ -37,8 +37,8 @@ maps. Andrew adopted and modified these files, topo_placer_script.py
 and Voltage_Map_Generator.m, to become useful for the InfoPos project.
 
 Acknowledgements to Edward Wlotko and Arim Perrachione for providing an initial 
-MATLAB processing script, preprocess.m, that helped Andrew to set up participant
-data. This includes functionality such as accepting a list of subject ids,
+MATLAB script, preprocess.m, that helped Andrew with some processing
+steps. This includes functionality such as accepting a list of subject ids,
 creating directories to store outputs, performing high/low pass EEG filtering,
 and the bin/epoch processes. 
 
