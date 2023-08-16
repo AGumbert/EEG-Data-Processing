@@ -14,8 +14,8 @@ Purpose of Pipeline:
 
 This pipeline is designed to process raw electroencephalogram (EEG) data.
 The data is processed in EEGLAB to filter and visualize Event-Related 
-Potentials in a study designed to test the predictive coding model of 
-cognition on language processing.
+Potentials (ERPs) in a study designed to test the predictive coding model
+of cognition on language processing.
 
 -----------------------------------------------------------------------
 Here are the necessary files in the main directory that must be present
