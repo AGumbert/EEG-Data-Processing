@@ -90,7 +90,7 @@ Here are the stages in the current data processing pipeline:
    that are labeled with more than 50% eye, or are obviously from muscle or 
    channel noise rather than neural activity. Save the post-ICA rejection sets to
    a folder named "EEGsets_after_ICA_rejection". Sets must be named
-   "<subject id>_after_ICA_rejection.set". 
+   "[subject id]_after_ICA_rejection.set". 
    For example: "IP10_after_ICA_rejection.set"
 
 7. Run the "preprocess_Andrew_ICA_to_processed_ERP.m" script on the data sets 
