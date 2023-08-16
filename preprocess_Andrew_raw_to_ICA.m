@@ -6,6 +6,15 @@
 %
 % This script is loosely based on prior processing
 % scripts used in the Hansen Lab.
+% Credit to Edward Wlotko and Arim Perrachione
+% for some of the set-up functionality with
+% regard to reading in participant data. Also,
+% credit to them for setting up folder-creating 
+% code, setting up parameters, and setting up initial 
+% filtering, binning, and epoching.
+%
+% All other parts of this script were written 
+% by Andrew
 
 %EEG analysis script for NCL standard 32 channel Biosemi data
 
