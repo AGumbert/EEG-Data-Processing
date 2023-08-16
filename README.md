@@ -43,7 +43,7 @@ such as accepting a list of subject ids, creating necessary directories
 to store outputs, performing high/low pass filtering of data, and 
 the bin/epoch processes. 
 
-See file headers for more information on acknowledgements pertaining
+See file headers for more information about acknowledgements pertaining
 to each specific file.
 
 -----------------------------------------------------------------------
