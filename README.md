@@ -9,31 +9,35 @@ Here are the necessary files in the main directory that must be
 present before beginning the pipeline:
 
 
-- rawEEG folder containing all raw participant data\n
-  This participant data will be processed by the pipeline.\n
-  (not public in this Github repository)
+- rawEEG folder containing all raw participant data
 
-- subject_ids.txt\n
-  A text file specifying subject ids, one per row, to be processed in 
-  the pipeline.
+This participant data will be processed by the pipeline.
 
-- InfoPos_bdf.txt\n
-  A text file used by EEGLAB to specify the bins dividing each trial
-  into the different experimental groups.\n
-  (not public in this Github repository)
+(not public in this Github repository)
 
-- InfoPos_bdf_overall.txt\n
-  A text file for creating one overall group with all trials used for
-  data quality analysis.\n
-  (not public in this Github repository)
+- subject_ids.txt
 
-- widescreen.pptx\n
-  This pptx is used to set the dimensions of the pptx with topographical 
-  maps, an output of topo_placer_script_Andrew.py. This is used in step
-  9 below to visualize the data.
+A text file specifying subject ids, one per row, to be processed in the pipeline.
 
-- A working version of EEGLAB with ERPLAB installed\n
-  (not public in this Github repository)
+- InfoPos_bdf.txt
+
+A text file used by EEGLAB to specify the bins dividing each trial into the different experimental groups.
+
+(not public in this Github repository)
+
+- InfoPos_bdf_overall.txt
+
+A text file for creating one overall group with all trials used for data quality analysis.
+
+(not public in this Github repository)
+
+- widescreen.pptx
+
+This pptx is used to set the dimensions of the pptx with topographical maps, an output of topo_placer_script_Andrew.py. This is used in step 9 below to visualize the data.
+
+- A working version of EEGLAB with ERPLAB installed
+
+(not public in this Github repository)
 
 
 Here are the stages in the current data processing pipeline:
