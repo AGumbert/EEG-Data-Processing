@@ -13,24 +13,29 @@ before beginning the pipeline:
 
 
 - rawEEG folder containing all raw participant data
+
 This participant data will be processed by the pipeline.
 (not public in this Github repository)
 
 - subject_ids.txt
+
 A text file specifying subject ids, one per row, to be processed in
 the pipeline.
 
 - InfoPos_bdf.txt
+
 A text file used by EEGLAB to specify the bins dividing each trial into
 the different experimental groups.
 (not public in this Github repository)
 
 - InfoPos_bdf_overall.txt
+
 A text file for creating one overall group with all trials used for
 data quality analysis.
 (not public in this Github repository)
 
 - widescreen.pptx
+
 This pptx is used to set the dimensions of the pptx with topographical maps,
 an output of topo_placer_script_Andrew.py. This is used in step 9 below to
 visualize the data.
