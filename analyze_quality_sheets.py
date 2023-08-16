@@ -4,6 +4,8 @@
 # Project in Dr. Gina Kuperberg's NeuroCognition of Language Lab.
 # Last updated by Andrw Gumbert, August 2023
 #
+# This entire document was created by Andrew.
+#
 # Processes all excel files in "data_quality_sheets" folder.
 # Expects file names to have the form "<Subject ID>_ERP_quality_sheet"
 # For example: "IP10_ERP_quality_sheet"
