@@ -4,6 +4,14 @@
 # In Dr. Gina Kuperberg's NeuroCognition of Language Lab
 # August 2023
 #
+# Credit to Edward Alexander for the original 
+# topo_placer_script.py
+# edward.alexander@tufts.edu
+# This version adapts Alexander's version for the 
+# InfoPos project and fixes bugs related to the scale 
+# of certain items on the output pptx. Aside from these 
+# changes, most of the code was created by Alexander. 
+#
 # Script is mainly based on original "topo_placer_script.py"
 # previously used in the Kuperberg lab.
 #
@@ -41,10 +49,6 @@ ppt_output_directory    = "S:\PROJECTS\InfoPos"
 #source_image_directory         = '/Users/Andrew/Desktop/MatLab/Andrew_PreProcess_FileStructure/topo_plots'  # name of folder script draws images from
 #ppt_output_directory           = '/Users/Andrew/Desktop/MatLab/Andrew_PreProcess_FileStructure'
 
-# old
-#source_image_directory         = '/Users/tedalexander/ppt_test/Ref_Scz_Tali'  # name of folder script draws images from
-#ppt_output_directory           = '/Users/tedalexander/ppt_test/Ref_Scz_Tali'
-
 #-----------------------------#
 #- Set up ppt                -#
 #-----------------------------#
@@ -67,27 +71,6 @@ condition_names = ["1st_info Minus\n1st_uninfo_Diff",
 "Uninfo_exp Minus\nUninfo_unexp",
 "Schema_1_info Minus\nSchema_1_uninfo",
 "Schema_2_info Minus\nSchema_2_uninfo"]
-
-
-# old
-#conditions = [5,6,7,8]
-#condition_names = ["cw_2ref/match \nminus     \ncw_1ref/match ",
-#"cw_2ref/mismatch \nminus \ncw_1ref/mismatch ",
-#"cw_1ref/mismatch \nminus       \ncw_1ref/match",
-#"cw_2ref/mismatch\nminus     \ncw_2ref/match"]
-
-# TFES
-#condition_names = ["even-so incoherent \nminus \neven-so coherent",
-#"therefore incoherent \nminus \ntherefore coherent",
-#"even-so coherent \nminus \ntherefore coherent ",
-#"even-so incoherent \nminus \ntherefore incoherent"]
-
-# ES3/1
-#conditions = [5,6,7,8]
-#condition_names = ["Even-so incoherent\nminus \nEven-so coherent",
-#"plain incoherent \nminus \nplain coherent",
-#"even-so coherent \nminus \nplain coherent ",
-#"even-so incoherent \nminus \nplain incoherent"]
  
 #-----------------------------#
 #- Crop images               -#
