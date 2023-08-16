@@ -1,7 +1,11 @@
 # EEG-Data-Processing
-Python and Matlab scripts for EEG Data Processing.
-Uses EEGLAB toolbox for Matlab.
-The scripts form a data processing pipeline for Thomas Hansen's
+Andrew Gumbert 
+August 2023
+
+
+This repository contains Python and MATLAB scripts for EEG Data Processing.
+The scripts use the EEGLAB and ERPLAB toolboxes for MATLAB.
+Together, these scripts form a data processing pipeline for Thomas Hansen's
 InfoPos Project in Dr. Gina Kuperberg's NeuroCognition of Language Lab.
 
 The scripts are partly based on prior processing scripts from the
