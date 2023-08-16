@@ -20,10 +20,12 @@ present before beginning the pipeline:
 - InfoPos_bdf.txt
   A text file used by EEGLAB to specify the bins dividing each trial
   into the different experimental groups.
+  (not public in this Github repository)
 
 - InfoPos_bdf_overall.txt
   A text file for creating one overall group with all trials used for
   data quality analysis.
+  (not public in this Github repository)
 
 - widescreen.pptx
   This pptx is used to set the dimensions of the pptx with topographical 
