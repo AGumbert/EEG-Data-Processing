@@ -8,6 +8,7 @@ The scripts are partly based on prior processing scripts from the
 Kuperberg lab, but Andrew heavily redesigned and developed the scripts
 during summer 2023.
 
+-----------------------------------------------------------------------
 Here are the necessary files in the main directory that must be present
 before beginning the pipeline:
 
@@ -43,7 +44,7 @@ visualize the data.
 - A working version of EEGLAB with ERPLAB installed
 (not public in this Github repository)
 
-
+-----------------------------------------------------------------------
 Here are the stages in the current data processing pipeline:
 
 1. Run "preprocess_Andrew_quality_sheets.m" on raw participant data files.
