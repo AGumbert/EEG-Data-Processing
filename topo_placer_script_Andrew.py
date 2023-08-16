@@ -4,6 +4,9 @@
 # In Dr. Gina Kuperberg's NeuroCognition of Language Lab
 # August 2023
 #
+# Script is mainly based on original "topo_placer_script.py"
+# previously used in the Kuperberg lab.
+#
 # Credit to Edward Alexander for the original 
 # topo_placer_script.py
 # edward.alexander@tufts.edu
@@ -11,9 +14,6 @@
 # InfoPos project and fixes bugs related to the scale 
 # of certain items on the output pptx. Aside from these 
 # changes, most of the code was created by Alexander. 
-#
-# Script is mainly based on original "topo_placer_script.py"
-# previously used in the Kuperberg lab.
 #
 # Expects topo maps from "Voltage_Map_Generator_Andrew.m"
 # to be in topo_plots folder within this directory
