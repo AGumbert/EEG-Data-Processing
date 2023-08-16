@@ -1,6 +1,7 @@
 #############  analyze_quality_sheets.py  ###########
 #
-# Created by Andrew Gumbert, June 2023 for Thomas Hanson Lab
+# Created by Andrew Gumbert, June 2023 for Thomas Hanson InfoPos
+# Project in Dr. Gina Kuperberg's NeuroCognition of Language Lab.
 # Last updated by Andrw Gumbert, August 2023
 #
 # Processes all excel files in "data_quality_sheets" folder.
