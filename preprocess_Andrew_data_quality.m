@@ -1,3 +1,13 @@
+%%%%%% preprocess_Andrew_data_quality.m %%%%%%
+%
+% Created by Andrew Gumbert for Thomas Hansen InfoPos 
+% Project, in the Kuperberg NeuroCognition of Language Lab
+% Last updated August 2023
+%
+% This script is loosely based on prior processing
+% scripts used in the Hansen Lab.
+
+
 %ERP pre-processing script for NCL standard 32 channel Biosemi data
 
 %This script creates data quality sheets for a group of participants 
@@ -9,7 +19,9 @@
 % 5. Bin and epoch data according to bin descriptor file
 % 6. Rejects trials outside of voltage threshold limits as set in 
 %    threshold_abs
-% 7. Puts out data quality sheets for all participants to 
+% 7. Puts out channel spectrum maps to "spectrum_map_outputs" 
+%    directory.
+% 8. Puts out data quality sheets for all participants to 
 %    'data_quality_sheets' directory
 
 %clear the workspace and close all figures/windows
@@ -30,70 +42,30 @@ clearvars; close all;
 %change as needed if you prefer different spots.
 
 % HERE IS DIRECTORY CODE FOR TOM'S COMPUTER
-%addpath('C:\Program Files\MATLAB\eeglab2022.1')
-%main_dir      = 'C:\Users\thoma\Documents\First Year PHD\FYP Presentation'; %main folder
+addpath('S:\PROJECTS\InfoPos\eeglab2023.0')
+main_dir      = 'S:\PROJECTS\InfoPos'; %main folder
 
 % BELOW IS DIRECTORY CODE FOR ANDREW'S COMPUTER
-addpath('/Users/Andrew/Desktop/MatLab/eeglab2023.0')
-cd('/Users/Andrew/Desktop/MatLab');
-main_dir      = [pwd '/Andrew_PreProcess_FileStructure']; %main folder
+%addpath('/Volumes/as_rsch_NCL02$/PROJECTS/InfoPos/eeglab2023.0');
+%main_dir   = '/Volumes/as_rsch_NCL02$/PROJECTS/InfoPos/'; %main folder
 
 raw_dir            = fullfile(main_dir, 'rawEEG'); %location of raw data in bdf format
 chanlocs_file      = fullfile(main_dir, 'biosemi32+8_tufts.xyz'); %location of chanlocs file. Old system should use Standard-10-20-Cap29.locs, Biosemi should use biosemi32+8_tufts.xyz
 bin_desc_file      = fullfile(main_dir, 'InfoPos_bdf_overall.txt'); %location of the bin descriptor file, saved as a txt.
 
-%%%% so we can get rid of anything that talks about the _arf. Thats the
-%%%% Artifact Rejection File, but we are just doing a simple voltage
-%%%% threshold and don't need a script for rejecting artifacts
 
 % IF MAKING QUALITY SCORE SPREADSHEETS, YOU WILL NEED THIS FOLDER TO EXIST IN main_dir
 quality_sheets_dir = fullfile(main_dir, 'data_quality_sheets'); %added to store data quality sheets
+artifact_rejection_output_dir = fullfile(main_dir, 'art_rej_from_dq'); % stores output of artifact rejection process
+channel_spectrum_output_dir = fullfile(main_dir, 'spectrum_map_outputs'); % stores output of channel spectrum maps
 
 quality_sheets_suffix = '_quality_sheet'; %this string is added to the end of each quality data sheet created.
-
-
-    %%%% yes, so as we discussed, generating the data quality sheets for each
-    %%%% participants is something we are ALWAYS going to want to do,
-    %%%% because the data in those sheets is what's going to allow us to
-    %%%% identify which channels are 'bad' and need to be removed. So maybe
-    %%%% it makes sense to just have one short script that gets the data
-    %%%% quality spreadsheets and that scripts allows you to get those
-    %%%% sheets for as many participants as you want. Then the
-    %%%% preprocessing script could be on a single participant basis, which
-    %%%% essentially what I am advocating for in the first place -- just
-    %%%% more individual time spent on processing each participant. Then in
-    %%%% the preprocessing script, we would want to remove the bad channels
-    %%%% after we've gone through filtering and epoching and binning and
-    %%%% everything, just right before the ICA starts
     
 
 % absolute value of simple voltage threshold. Channels with absolute values
 % outside of this threshold are rejected.
 threshold_abs = 250;
     
-    %%%% yep, this is fine. This threshold is really something to think
-    %%%% about more. It's a nice option to have in the preprocessing, but
-    %%%% it would be nice if it could be something you could specify
-    %%%% whether you want to include or not on a by participant basis. This
-    %%%% step is to help the ICA decomposition. The cleaner the data we can
-    %%%% give to the ICA algorithm, the better components we will get. In
-    %%%% EEG there are as Steve Luck calls them, Commonly Rejected
-    %%%% Artifactual Potentials or CRAP in the data and these are things
-    %%%% like single trial muscle activity bursts that cause a trial to be
-    %%%% unusable (e.g., someone adjusting their body in the middle of a
-    %%%% trial). Ideally, we would want to remove this CRAP before we feed
-    %%%% the data into ICA, which our current preprocessing script doesn't
-    %%%% allow for. Why it would be nice to have this as an option and not
-    %%%% necessarily use it 100% of the time is that for some participants,
-    %%%% the CRAP might just be on one or 2 trials and then we could just
-    %%%% easily look at the data (which we will be doing anyways) and then
-    %%%% remove those trials manually. If there is a lot of CRAP then it
-    %%%% would be nice to just use a big simple voltage threshold to kind
-    %%%% of 'weed out' the really big stuff before feeding into ICA without
-    %%%% wasting too much time scanning through the data and removing
-    %%%% trials manually. Either way, including this step will improve on
-    %%%% the current preprocessing script
-
 %Code used to denote boundary events
 boundary_code = 300; %filtering will "break" at a boundary code, resuming on the other side (put the code for pauses to EEG data collection here).
 
@@ -158,7 +130,7 @@ else
     batch_proc = false;
 end
 
-
+% creates necessary folders if they do not exist
 if ~exist(fullfile(main_dir, 'belist'), 'dir')
     mkdir(fullfile(main_dir, 'belist'))
 end
@@ -173,6 +145,12 @@ if ~exist(fullfile(main_dir, 'log'), 'dir')
 end
 if ~exist(fullfile(main_dir, 'data_quality_sheets'), 'dir')
     mkdir(fullfile(main_dir, 'data_quality_sheets'))
+end
+if ~exist(fullfile(main_dir, 'art_rej_from_dq'), 'dir')
+    mkdir(fullfile(main_dir, 'art_rej_from_dq'))
+end
+if ~exist(fullfile(main_dir, 'spectrum_map_outputs'), 'dir')
+    mkdir(fullfile(main_dir, 'spectrum_map_outputs'))
 end
 
 %% ***** DATA PROCESSING *****
@@ -199,11 +177,6 @@ for i = 1:length(sub_ids)
         EEG = pop_loadset('filename', [sub_id '_raw.set'], 'filepath', [main_dir filesep 'EEGsets']);
         [ALLEEG, EEG, CURRENTSET] = eeg_store(ALLEEG, EEG, 0);
 
-        %%%% so ALLEEG is all the current .set files you have loaded into
-        %%%% EEGlab and EEG should just be specifying that we are working
-        %%%% with EEG not ERP sets, and then CURRENTSET should just be the
-        %%%% current set that is loaded into the GUI 
-
 
         log_text{end+1} = sprintf('%s\tRaw data loaded from\t%s', datestr(clock), fullfile(main_dir, 'EEGsets', [sub_id '_raw.set']));
         
@@ -214,17 +187,9 @@ for i = 1:length(sub_ids)
         EEG.subject = sub_id;
         [ALLEEG, EEG, CURRENTSET] = pop_newset(ALLEEG, EEG, 0, 'setname', sub_id, 'gui', 'off');
 
-            %%%% so take note of the 'gui' 'off' here, you can manipulate
-            %%%% when the GUI is shown to the researcher or not, which is
-            %%%% something to think about 
-
-
            
         log_text{end+1} = sprintf('%s\tRaw data loaded from\t%s', datestr(clock), fullfile(raw_dir, [sub_id '.bdf']));
         
-                %%%% loading in the raw data as a biosemi data format
-                %%%% (.bdf)
-
 
         %Add channel locations
         EEG = pop_editset(EEG, 'chanlocs', chanlocs_file);
@@ -246,9 +211,6 @@ for i = 1:length(sub_ids)
 	EEG = pop_select(EEG, 'nochannel', {'ExG1' 'ExG2' 'ExG3' 'ExG4'}); %removes extraneous channels in Biosemi
 	[ALLEEG, EEG, CURRENTSET] = pop_newset(ALLEEG, EEG, CURRENTSET, 'setname', [EEG.setname '_rchan'], 'gui', 'off');
            
-    
-            %%%% this pop_newset function is how all the different EEG sets
-            %%%% are generated, which is a good feature of this script
 
 	log_text{end+1} = sprintf('%s\tExtraneous extension channels (37-40) removed', datestr(datetime('now')));
 	EEG = pop_reref(EEG, ref_chans); %biosemi rereferencing
@@ -262,15 +224,6 @@ for i = 1:length(sub_ids)
     if high_pass
         EEG  = pop_basicfilter(EEG, 1:length(EEG.chanlocs), 'Boundary', boundary_code, 'Cutoff', high_pass, 'Design', 'butter', 'Filter', 'highpass', 'Order', 2, 'RemoveDC', 'on');
 
-                    %%%% so just renaming the current EEG set, doing it to
-                    %%%% all channels and the boundary code part is just
-                    %%%% specifying whether their is a boundary, which is
-                    %%%% probably important to this pop_basicfilter
-                    %%%% function as it probably doesn't work unless the
-                    %%%% boundaries are specified since there would be
-                    %%%% nothing to filter. The other arguments are just
-                    %%%% the specifications for what kind of filter we want
-                    %%%% to use
 
         log_text{end+1} = sprintf('%s\tFiltered all channels with a 2nd order Butterworth IIR filter with a half-amplitude high pass cutoff of\t%.2f', datestr(clock), high_pass);
     end
@@ -280,14 +233,7 @@ for i = 1:length(sub_ids)
     end
     [ALLEEG, EEG, CURRENTSET] = pop_newset(ALLEEG, EEG, CURRENTSET, 'setname', [EEG.setname '_filt'], 'gui', 'off');
 
-    %%%% so note that after each step, we save a new dataset in the
-    %%%% ALLEEG variable and then update the currentset 
-   
-    
     %% Bin and epoch
-
-    %%%% this stuff is really never going to change so I don't know
-    %%%% how much time we needa spend rethinking any of this 
 
     %Create event list
     EEG  = pop_creabasiceventlist(EEG, 'AlphanumericCleaning', 'on', 'BoundaryNumeric', {-99}, 'BoundaryString', {'boundary'}, 'Eventlist', fullfile(main_dir, 'belist', [sub_id '_eventlist.txt'])); 
@@ -306,18 +252,27 @@ for i = 1:length(sub_ids)
     %% Rejecting Thresholds Beyond Boundary
 
     % rejects time periods with values outside of simple voltage threshold
-    EEG = pop_artextval( EEG , 'Channel',  1:34, 'Flag',  1, 'LowPass',  -1, 'Threshold', [ (-1 * threshold_abs) threshold_abs], 'Twindow', [ -300.8 1197.3] )
+    % and puts result out to the command window and to a file 
+    %EEG = pop_artextval( EEG , 'Channel',  1:34, 'Flag',  1, 'LowPass',  -1, 'Threshold', [ (-1 * threshold_abs) threshold_abs], 'Twindow', [ -300.8 1197.3] );
+    %pop_summary_AR_eeg_detection(EEG, [artifact_rejection_output_dir '/' EEG.subject '_art_rej_from_dq_script.txt'], 'History', 'gui');
+
+    % removes marked trials and saves dataset
+    %EEG = pop_rejepoch(EEG, find(EEG.reject.rejmanual), 0);
+    %[ALLEEG, EEG, CURRENTSET] = pop_newset(ALLEEG, EEG, CURRENTSET, 'setname', [EEG.setname '_rej'], 'gui', 'off');
+    %log_text{end+1} = sprintf('%s\tArtifact Rejection Set created from\t%s', datestr(clock), bin_desc_file);
+
+    %% Puts out channel spectrum map to a file
+
+    figure; pop_spectopo(EEG, 1, epoch_time, 'EEG' , 'freq', [6 10 22], 'freqrange',[2 100], 'electrodes','off');
+    savefig([channel_spectrum_output_dir '/' EEG.subject '_spectrum_map'])
+    close;
 
     %% Data Quality Analysis is put out to Excel files 
   
     % stores data quality data in data_quality_dir directory
-    ERP = pop_averager( ALLEEG , 'Criterion', 'good', 'DQ_custom_wins', 0, 'DQ_flag', 1, 'DQ_preavg_txt', 0, 'DSindex', 7, 'ExcludeBoundary', 'on', 'SEM', 'on' );
-    ERP.erpname = [ERP.subject '_ERP'];
-    save_data_quality(ERP, [quality_sheets_dir '/' ERP.erpname quality_sheets_suffix], 'xlsx', 3);
-        
-    %%%% so this is just showing that in order to get the data quality
-    %%%% values, we have to internally average the data and make an ERP
-    %%%% set, but that we don't save this ERP, which makes sense
+    %ERP = pop_averager( ALLEEG , 'Criterion', 'good', 'DQ_custom_wins', 0, 'DQ_flag', 1, 'DQ_preavg_txt', 0, 'DSindex', 8, 'ExcludeBoundary', 'on', 'SEM', 'on' );
+    %ERP.erpname = [ERP.subject '_ERP'];
+    %save_data_quality(ERP, [quality_sheets_dir '/' ERP.erpname quality_sheets_suffix], 'xlsx', 3);
 
 end
 eeglab redraw;
