@@ -40,7 +40,7 @@ Acknowledgements to Edward Wlotko and Arim Perrachione for providing an initial
 MATLAB script, preprocess.m, that helped Andrew with some processing
 steps. This includes functionality such as accepting a list of subject ids,
 creating directories to store outputs, performing high/low pass EEG filtering,
-and the bin/epoch processes. 
+and the bin/epoch methods. 
 
 See file headers for more information about acknowledgements pertaining
 to each specific file.
