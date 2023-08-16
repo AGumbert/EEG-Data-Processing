@@ -80,26 +80,26 @@ Here are the stages in the current data processing pipeline:
    in the "data_quality_sheets_color" folder. ("interpolated_channels.txt" is
    not public on GitHub)
 
-5. Run "preprocess_Andrew_raw_to_ICA.m" on each participant. Remove the appropriate 
+4. Run "preprocess_Andrew_raw_to_ICA.m" on each participant. Remove the appropriate 
    channels when prompted according to the results of the previous step. 
    This will generate data sets in a folder named "EEGsets_before_ICA_rejection".
    For reference, artifact rejection sets from this script will appear in the 
    "art_rej_before_ICA" folder.
 
-6. Run ICLabel on each participant, and reject the components of each participant
+5. Run ICLabel on each participant, and reject the components of each participant
    that are labeled with more than 50% eye, or are obviously from muscle or 
    channel noise rather than neural activity. Save the post-ICA rejection sets to
    a folder named "EEGsets_after_ICA_rejection". Sets must be named
-   "[subject id]_after_ICA_rejection.set". 
+   "{subject id}_after_ICA_rejection.set". 
    For example: "IP10_after_ICA_rejection.set"
 
-7. Run the "preprocess_Andrew_ICA_to_processed_ERP.m" script on the data sets 
+6. Run the "preprocess_Andrew_ICA_to_processed_ERP.m" script on the data sets 
    generated in the previous step. This will generate ERP sets in a folder named
    "ERPsets". For reference, EEG sets will appear in the "Processed_EEGsets" folder,
    and final artifact rejection information will appear in the "art_rej_after_ICA"
    folder.
 
-9. Compute a grand ERP average across all ERP sets from the previous 
+7. Compute a grand ERP average across all ERP sets from the previous 
    step, and then perform visualization or statistical analysis as desired. 
 
    "preprocess_Andrew_plot_grand_avrg.m" can be used to produce plots 
@@ -118,12 +118,12 @@ Here are the stages in the current data processing pipeline:
    "preprocess_Andrew_plot_grand_avrg.m" script will put outputs into 
    a folder called "erp_plotsabc123".
 
-10. To create an orderly spreadsheet containing topographic maps of all 
+8. To create an orderly spreadsheet containing topographic maps of all 
    difference waves across time, run "Voltage_Map_Generator_Andrew.m" 
    on the processed ERP sets in the "ERPsets" folder. Topographical 
    maps will be generated in a specific format in a folder called "topo_maps".
 
-11. Run "topo_placer_script_Andrew.py" on the topographical maps in "topo_maps".
+9. Run "topo_placer_script_Andrew.py" on the topographical maps in "topo_maps".
    Note that "widescreen.pptx" must be present in the main directory to 
    set the dimensions of the resulting pptx. The resulting pptx will be 
    called "Export_all_topoplots.pptx" and will contain orderly rows of 
