@@ -262,13 +262,13 @@ for i = 1:length(sub_ids)
 
     % rejects time periods with values outside of simple voltage threshold
     % and puts result out to the command window and to a file 
-    %EEG = pop_artextval( EEG , 'Channel',  1:34, 'Flag',  1, 'LowPass',  -1, 'Threshold', [ (-1 * threshold_abs) threshold_abs], 'Twindow', [ -300.8 1197.3] );
-    %pop_summary_AR_eeg_detection(EEG, [artifact_rejection_output_dir '/' EEG.subject '_art_rej_from_dq_script.txt'], 'History', 'gui');
+    EEG = pop_artextval( EEG , 'Channel',  1:34, 'Flag',  1, 'LowPass',  -1, 'Threshold', [ (-1 * threshold_abs) threshold_abs], 'Twindow', [ -300.8 1197.3] );
+    pop_summary_AR_eeg_detection(EEG, [artifact_rejection_output_dir '/' EEG.subject '_art_rej_from_dq_script.txt'], 'History', 'gui');
 
     % removes marked trials and saves dataset
-    %EEG = pop_rejepoch(EEG, find(EEG.reject.rejmanual), 0);
-    %[ALLEEG, EEG, CURRENTSET] = pop_newset(ALLEEG, EEG, CURRENTSET, 'setname', [EEG.setname '_rej'], 'gui', 'off');
-    %log_text{end+1} = sprintf('%s\tArtifact Rejection Set created from\t%s', datestr(clock), bin_desc_file);
+    EEG = pop_rejepoch(EEG, find(EEG.reject.rejmanual), 0);
+    [ALLEEG, EEG, CURRENTSET] = pop_newset(ALLEEG, EEG, CURRENTSET, 'setname', [EEG.setname '_rej'], 'gui', 'off');
+    log_text{end+1} = sprintf('%s\tArtifact Rejection Set created from\t%s', datestr(clock), bin_desc_file);
 
     %% Puts out channel spectrum map to a file
 
@@ -279,9 +279,9 @@ for i = 1:length(sub_ids)
     %% Data Quality Analysis is put out to Excel files 
   
     % stores data quality data in data_quality_dir directory
-    %ERP = pop_averager( ALLEEG , 'Criterion', 'good', 'DQ_custom_wins', 0, 'DQ_flag', 1, 'DQ_preavg_txt', 0, 'DSindex', 8, 'ExcludeBoundary', 'on', 'SEM', 'on' );
-    %ERP.erpname = [ERP.subject '_ERP'];
-    %save_data_quality(ERP, [quality_sheets_dir '/' ERP.erpname quality_sheets_suffix], 'xlsx', 3);
+    ERP = pop_averager( ALLEEG , 'Criterion', 'good', 'DQ_custom_wins', 0, 'DQ_flag', 1, 'DQ_preavg_txt', 0, 'DSindex', 8, 'ExcludeBoundary', 'on', 'SEM', 'on' );
+    ERP.erpname = [ERP.subject '_ERP'];
+    save_data_quality(ERP, [quality_sheets_dir '/' ERP.erpname quality_sheets_suffix], 'xlsx', 3);
 
 end
 eeglab redraw;
